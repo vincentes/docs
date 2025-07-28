@@ -1,67 +1,131 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in under 5 minutes"
+description: "Start building cross-chain payments with Keygate SDK in under 5 minutes"
 ---
 
 ## Setup your development
 
-Learn how to update your docs locally and and deploy them to the public.
+Learn how to integrate Keygate SDK into your application for seamless cross-chain payments.
 
-### Edit and preview
+### Install and configure
 
-<AccordionGroup>
-  <Accordion title="Clone your docs locally" icon="github">
-    During the onboarding process, we created a repository on your Github with
-    your docs content. You can find this repository on our
-    [dashboard](https://dashboard.mintlify.com). To clone the repository
-    locally, follow these
-    [instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
-    in your terminal.
-  </Accordion>
-  <Accordion title="Preview changes" icon="rectangle-terminal">
-    Previewing helps you make sure your changes look as intended. We built a
-    command line interface to render these changes locally. 1. Install the
-    [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview the
-    documentation changes locally with this command: `npm i -g mintlify`
-    2. Run the following command at the root of your documentation (where
-    `mint.json` is): `mintlify dev`
-  </Accordion>
-</AccordionGroup>
+Install the Keygate SDK package using npm or yarn:
 
-### Deploy your changes
+```bash
+npm install @keygate/sdk
+```
 
-<AccordionGroup>
-  <Accordion title="Install our Github app" icon="message-bot">
-    Our Github app automatically deploys your changes to your docs site, so you
-    don't need to manage deployments yourself. You can find the link to install on
-    your [dashboard](https://dashboard.mintlify.com). Once the bot has been
-    successfully installed, there should be a check mark next to the commit hash
-    of the repo.
-  </Accordion>
-  <Accordion title="Push your changes" icon="rocket">
-    [Commit and push your changes to
-    Git](https://docs.github.com/en/get-started/using-git/pushing-commits-to-a-remote-repository#about-git-push)
-    for your changes to update in your docs site. If you push and don't see that
-    the Github app successfully deployed your changes, you can also manually
-    update your docs through our [dashboard](https://dashboard.mintlify.com).
-  </Accordion>
-</AccordionGroup>
+Or with yarn:
 
-## Update your docs
+```bash
+yarn add @keygate/sdk
+```
 
-Add content directly in your files with MDX syntax and React components. You can use any of our components, or even build your own.
+Keygate SDK requires several peer dependencies for wallet management and cross-chain functionality:
+
+```bash
+npm install wagmi viem @tanstack/react-query @lifi/sdk
+```
+
+Make sure you have React 18\+ and TypeScript 4.9\+ installed in your project.
+
+Set up your environment variables for the Keygate SDK:
+
+```env
+NEXT_PUBLIC_LIFI_API_KEY=your_lifi_api_key
+NEXT_PUBLIC_CHAIN_ID=1
+```
+
+You can get a LiFi API key from their [dashboard](https://li.fi/).
+
+### Basic integration
+
+Wrap your application with the required providers for wallet management and Keygate functionality:
+
+```tsx
+import { KeygateProvider } from '@keygate/sdk';
+import { WagmiProvider } from 'wagmi';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <WagmiProvider config={wagmiConfig}>
+        <KeygateProvider>
+          {/* Your app components */}
+        </KeygateProvider>
+      </WagmiProvider>
+    </QueryClientProvider>
+  );
+}
+```
+
+Use the PayButton component to enable cross-chain payments in your application:
+
+```tsx
+import { PayButton } from '@keygate/sdk';
+
+function MyComponent() {
+  return (
+    <PayButton
+      toAmount="100"
+      toAddress="0x1234567890123456789012345678901234567890"
+      fromCurrency="USDC"
+      toCurrency="USDC"
+      toAlias="Alice"
+      toFallbackAddress="0x1234567890123456789012345678901234567890"
+    />
+  );
+}
+```
+
+The PayButton component is fully customizable with CSS classes and supports dark mode:
+
+```tsx
+<PayButton
+  toAmount="50"
+  toAddress="0x..."
+  fromCurrency="USDC"
+  toCurrency="USDC"
+  className="custom-pay-button"
+/>
+```
+
+The component automatically handles wallet connection, transaction estimation, and execution.
+
+## Components
+
+The Keygate SDK provides several core components for building cross-chain payment experiences.
 
 <CardGroup cols={2}>
-  <Card title="Style Your Docs" icon="paintbrush" href="/settings/global">
-    Add flair to your docs with personalized branding.
+  <Card title="PayButton" icon="credit-card" href="/components/pay-button">
+    The main payment component that handles wallet connection, transaction estimation, and execution.
   </Card>
-  <Card title="Add API Endpoints" icon="square-code" href="/api-playground/configuration">
-    Implement your OpenAPI spec and enable API user interaction.
-  </Card>
-  <Card title="Integrate Analytics" icon="chart-mixed" href="/analytics/supported-integrations">
-    Draw insights from user interactions with your documentation.
-  </Card>
-  <Card title="Host on a Custom Domain" icon="browser" href="/settings/custom-domain/subdomain">
-    Keep your docs on your own website's subdomain.
+  <Card title="TransactionModal" icon="window" href="/components/transaction-modal">
+    A modal component that displays transaction details and confirmation flow.
   </Card>
 </CardGroup>
+
+## Payment Flow
+
+The Keygate SDK implements a streamlined payment flow that handles the complexity of cross-chain transactions:
+
+<Steps>
+  <Step title="User clicks PayButton">
+    The user clicks the PayButton component, which opens the TransactionModal.
+  </Step>
+  <Step title="Wallet connection">
+    If not connected, the user selects and connects their wallet (MetaMask supported).
+  </Step>
+  <Step title="Transaction estimation">
+    The SDK estimates gas costs, fees, and execution time for the cross-chain transaction.
+  </Step>
+  <Step title="User confirmation">
+    The user reviews the transaction details and confirms the payment.
+  </Step>
+  <Step title="Cross-chain execution">
+    The SDK executes the transaction using LiFi's cross-chain infrastructure.
+  </Step>
+</Steps>

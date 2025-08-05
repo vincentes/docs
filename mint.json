@@ -29,5 +29,10 @@
     "x": "https://x.com/keygate_io",
     "github": "https://github.com/keygate-io",
     "linkedin": "https://www.linkedin.com/company/keygate-inc"
-  }
+  },
+"integrations": {
+    "ga4": {
+        "measurementId": "G-8BXJSPLR80"
+    }
+}
 }

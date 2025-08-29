@@ -23,6 +23,12 @@
         "quickstart",
         "development"
       ]
+    },
+    {
+     "group": "SDK",
+     "pages": [
+        "supported-chains.mdx"
+      ] 
     }
   ],
   "footerSocials": {

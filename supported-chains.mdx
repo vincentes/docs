@@ -11,3 +11,29 @@ Keygate supports the following chains for token swapping and bridging (with more
 | Base                       | 8453            | ✅       | ✅        |
 | Arbitrum                   | 42161           | ✅       | ✅        |
 | Internet Computer Protocol | 121171651099711 | ✅       | ✅        |
+
+# **Get available chains**
+
+`getChains`
+
+Fetches a list of all available chains supported by the Keygate SDK.
+
+**Parameters**
+
+- `params` (ChainRequest, optional): Specify which chains you are interested in integrating into your dApp.
+  - `chainTypes` A filter to select the type of chains to support. e.g `ChainType.EVM`, `ChainType.ICP`. 
+
+**Returns**
+
+A promise that resolves to an array of `ExtendedChain` objects.
+
+```typescript
+import { ChainType, getChains } from '@keygate/sdk';
+
+try {
+  const chains = await getChains({ chainTypes: [ChainType.EVM] });
+  console.log(chains);
+} catch (error) {
+  console.error(error);
+}
+```

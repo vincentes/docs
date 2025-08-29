@@ -27,7 +27,8 @@
     {
      "group": "SDK",
      "pages": [
-        "supported-chains"
+        "supported-chains",
+        "supported-tokens"
       ] 
     }
   ],

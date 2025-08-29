@@ -27,7 +27,7 @@
     {
      "group": "SDK",
      "pages": [
-        "supported-chains.mdx"
+        "supported-chains"
       ] 
     }
   ],

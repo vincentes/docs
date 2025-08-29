@@ -1,0 +1,43 @@
+---
+title: "Execute Routes & Quotes"
+description: "After obtaining a route, you can delegate to the SDK to execute it."
+---
+
+Use the `executeRoute` function to begin executing a route.Here is a simple example of executing a route for bridging **10 USDC** on Optimism to the maximum amount of **osUSDC** on the Internet Computer Protocol. Note that you will need to configure a [**Viem**](https://viem.sh/) wallet client to your preferences in order to begin executing.
+
+```typescript
+import { getRoutes, RouteResponse, executeRoute } from '@suave-money/sdk'
+import { createWalletClient, http } from 'viem'
+import { mainnet } from 'viem/chains'
+
+const client = createWalletClient({
+  chain: mainnet,
+  transport: http()
+})
+
+const routes: RouteResponse[] = await getRoutes({
+  inputAmount: '10000000', // 10 USDC
+  fromChainId: 10, // Optimism
+  fromToken: '0x0b2c639c533813f4aa9d7837caf62653d097ff85', // USDC on Optimism
+  toChainId: 121171651099711, // Internet Computer Protocol 
+  toToken: '5okwm-giaaa-aaaar-qbn6a-cai' // osUSDC
+})
+
+const chosenRoute = routes[0]
+
+await executeRoute(chosenRoute, {
+  walletClient: client
+})
+```
+
+## **Execution parameters**
+
+Below are the parameters for the `executeRoutes` function along with their descriptions:
+
+**route **`RoutesResponse` `required`
+
+This is a route object as produced by the `getRoutes` function.
+
+**walletClient **`WalletClient` `required`
+
+This is a Viem-compatible wallet client object which will be used for resolving onchain transactions such as swapping and bridging. See the [**Viem docs**](https://viem.sh/docs/clients/wallet) for more details.

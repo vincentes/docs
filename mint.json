@@ -29,7 +29,8 @@
      "pages": [
         "supported-chains",
         "supported-tokens",
-        "feature-request"
+        "feature-request",
+        "routes"
       ] 
     }
   ],

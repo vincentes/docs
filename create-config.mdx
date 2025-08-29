@@ -1,0 +1,47 @@
+---
+title: "Configure SDK"
+description: "Get started and set up Keygate SDK in just a few lines of code."
+---
+
+## Create Config
+
+To get started, you need to create an initial configuration for the Keygate SDK. This configuration contains the shared settings and data required for the proper functioning of other SDK features that developers will use. Additionally, the configuration can be updated later as needed.
+
+```typescript
+import { createConfig } from '@keygate/sdk'
+
+createConfig({
+  integrator: 'Your dApp/company name',
+})
+```
+
+## Configuration Options
+
+The `createConfig` function accepts a configuration object with the following properties:
+
+**integrator** `string` `required`
+
+A unique identifier for your dApp or company. This helps Keygate track usage and provide support when needed.
+
+## Example Usage
+
+Here's a complete example of how to set up the Keygate SDK configuration:
+
+```typescript
+import { createConfig } from '@keygate/sdk'
+
+// Initialize the SDK with your configuration
+createConfig({
+  integrator: 'MyAwesomeDApp',
+})
+
+// Now you can use other SDK functions like getRoutes, getQuote, etc.
+```
+
+## Next Steps
+
+Once you've configured the SDK, you can:
+
+- [Request routes and quotes](/routes) to find the best cross-chain paths
+- [Execute routes](/execute-routes) to perform actual swaps and bridges
+- Explore the [API reference](/api-reference) for detailed function documentation

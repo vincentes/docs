@@ -17,6 +17,11 @@
   },
   "navigation": [
     {
+      "anchor": "Bridge",
+      "icon": "link",
+      "href": "https://bridge.keygate.io"
+    },
+    {
       "group": "Get Started",
       "pages": [
         "introduction",

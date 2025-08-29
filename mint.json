@@ -23,7 +23,8 @@
     {
      "group": "SDK",
      "pages": [
-       "routes",
+        "create-config",
+        "routes",
         "execute-routes",
         "supported-chains",
         "supported-tokens",

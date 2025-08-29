@@ -1,0 +1,60 @@
+---
+title: "Request Routes & Quotes"
+description: "Prior to executing a swap or a bridge, you need to request the best route from our API."
+---
+
+Use the `getRoutes` function to fetch routes/quotes from the Keygate API. Here is a simple example of how to request routes to bridge **10 USDC** on Optimism to the maximum amount of **ckUSDC** on Internet Computer Protocol
+
+```typescript
+import { getRoutes, RouteResponse } from '@keygate/sdk'
+
+const routes: RouteResponse[] = await getRoutes({
+  inputAmount: '10000000', // 10 USDC
+  fromChainId: 10, // Optimism
+  fromToken: '0x0b2c639c533813f4aa9d7837caf62653d097ff85', // USDC on Optimism
+  toChainId: 121171651099711, // Internet Computer Protocol
+  toToken: '5okwm-giaaa-aaaar-qbn6a-cai' // osUSDC on Internet Computer Protocol
+})
+```
+
+# Routes request parameters
+
+Below are the parameters for the `getRoutes` function along with their descriptions:
+
+**fromChainId** `number` `required`
+
+The ID of the source chain.
+
+| Chain Name                 | Chain ID        |
+| -------------------------- | --------------- |
+| Ethereum                   | 1               |
+| Arbitrum                   | 42161           |
+| Internet Computer Protocol | 121171651099711 |
+| Base                       | 8453            |
+
+**fromTokenAddress **`string` `required`
+
+The contract address of the token on the source chain. Ensure this address corresponds to the specified fromChainId.
+
+**fromAmount **`string` `required`
+
+The amount to be transferred from the source chain, specified in the smallest unit of the token (e.g., wei for ETH).
+
+**fromAddress **`string` `optional`
+
+The address from which the tokens are being transferred.
+
+**toChainId **`number` `required`
+
+The ID of the destination chain.
+
+| Chain Name                 | Chain ID        |
+| :------------------------- | :-------------- |
+| Ethereum                   | 1               |
+| Arbitrum                   | 42161           |
+| Internet Computer Protocol | 121171651099711 |
+| Base                       | 8453            |
+
+**toTokenAddress **`string` `required`
+
+The contract address of the token on the destination chain. Ensure this address corresponds to the specified toChainId.

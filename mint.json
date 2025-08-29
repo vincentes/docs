@@ -27,10 +27,11 @@
     {
      "group": "SDK",
      "pages": [
+       "routes",
+        "execute-routes",
         "supported-chains",
         "supported-tokens",
-        "feature-request",
-        "routes"
+        "feature-request"
       ] 
     }
   ],

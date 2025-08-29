@@ -11,3 +11,62 @@ Keygate supports the following tokens for token swapping and bridging (with more
 | osUSDC | Internet Computer Protocol |
 
 To retrieve all supported tokens, an integrator can execute the following request via the SDK.
+
+# Get available tokens
+
+`getTokens`
+
+Retrieves a list of all available tokens on specific chains, including: token metadata, token explorer URL, logos, and other relevant data (except price information).
+
+**Parameters**
+
+- `params` (TokensRequest, optional): Configuration for the requested tokens.
+  - `chains` (Chaind[], optional): List of chain IDs or keys. If not available, returns tokens **on all available chains**.
+  - `chainTypes`: (ChainId[], optional): List of chain types
+- `options` (RequestOptions, optional): Additional request options.
+
+**Returns **
+
+A promise that resolves to `TokenResponse`.
+
+```typescript
+import { ChainType, getTokens } from '@keygate/sdk';
+
+try {
+  const tokens = await getTokens({
+    chainTypes: [ChainType.EVM, ChainType.SVM],
+  });
+  console.log(tokens);
+} catch (error) {
+  console.error(error);
+}
+```
+
+# Get a specific token's information
+
+`getToken`
+
+Fetches details about a specific token on a specific chain.
+
+**Parameters**
+
+- `chain` (ChainKey | ChainId): ID or key of the chain that contains the token.
+- `token` (string): Address or symbol of the token on the request chain.
+
+**Returns**
+
+A promise that resolves to a `Token` object.
+
+```typescript
+import { getToken } from '@keygate/sdk';
+
+const chainId = 121171651099711;
+const tokenAddress = '53nhb-haaaa-aaaar-qbn5q-cai';
+
+try {
+  const token = await getToken(chainId, tokenAddress);
+  console.log(token);
+} catch (error) {
+  console.error(error);
+}
+```

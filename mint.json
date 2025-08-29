@@ -38,7 +38,8 @@
   "footerSocials": {
     "x": "https://x.com/keygate_io",
     "github": "https://github.com/keygate-io",
-    "linkedin": "https://www.linkedin.com/company/keygate-inc"
+    "linkedin": "https://www.linkedin.com/company/keygate-inc",
+    "telegram": "https://t.me/keygateio"
   },
 "integrations": {
     "ga4": {

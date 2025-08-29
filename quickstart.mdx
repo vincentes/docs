@@ -3,116 +3,49 @@ title: "Quickstart"
 description: "Start building cross-chain payments with Keygate SDK in under 5 minutes"
 ---
 
-## Setup your development
+## Installation
 
-Learn how to integrate Keygate SDK into your application for seamless cross-chain payments.
+<CodeGroup>
 
-### Install and configure
-
-Install the Keygate SDK package using npm or yarn:
-
-```bash
+```bash npm
 npm install @keygate/sdk
 ```
 
-Or with yarn:
 
-```bash
-yarn add @keygate/sdk
+```bash pnpm
+pnpm add @keygate/sdk
 ```
 
-Keygate SDK requires several peer dependencies for wallet management and cross-chain functionality:
+</CodeGroup>
 
-```bash
-npm install wagmi viem @tanstack/react-query @lifi/sdk
-```
-
-Make sure you have React 18\+ and TypeScript 4.9\+ installed in your project.
-
-Set up your environment variables for the Keygate SDK:
-
-```env
-NEXT_PUBLIC_LIFI_API_KEY=your_lifi_api_key
-NEXT_PUBLIC_CHAIN_ID=1
-```
-
-You can get a LiFi API key from their [dashboard](https://li.fi/).
-
-### Get started in 5 minutes
-
-Wrap your application with the required providers for wallet management and Keygate functionality:
-
-```tsx
-import { KeygateProvider } from '@keygate/sdk';
-import { WagmiProvider } from 'wagmi';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
-const queryClient = new QueryClient();
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <WagmiProvider config={wagmiConfig}>
-        <KeygateProvider>
-          {/* Your app components */}
-        </KeygateProvider>
-      </WagmiProvider>
-    </QueryClientProvider>
-  );
-}
-```
-
-Use the PayButton component to enable cross-chain payments in your application:
-
-```tsx
-import { PayButton } from '@keygate/sdk';
-
-function MyComponent() {
-  return (
-    <PayButton
-      toAmount="100"
-      toAddress="0x1234567890123456789012345678901234567890"
-      fromCurrency="USDC"
-      toCurrency="USDC"
-      toAlias="Alice"
-      toFallbackAddress="0x1234567890123456789012345678901234567890"
-    />
-  );
-}
-```
-
-The PayButton component is fully customizable with CSS classes and supports dark mode:
-
-```tsx
-<PayButton
-  toAmount="50"
-  toAddress="0x..."
-  fromCurrency="USDC"
-  toCurrency="USDC"
-  className="custom-pay-button"
-/>
-```
-
-The component automatically handles wallet connection, transaction estimation, and execution.
-
-## Payment Flow
-
-The Keygate SDK implements a streamlined payment flow that handles the complexity of cross-chain transactions:
+## Quick Start
 
 <Steps>
-  <Step title="User clicks PayButton">
-    The user clicks the PayButton component, which opens the TransactionModal.
+  <Step title="Set up the SDK">
+    Create a config with your product's name.
+
+    ```typescript
+    import { createConfig } from '@keygate/sdk';
+    
+    createConfig({
+      integrator: 'Product/dApp name',
+    });
+    ```
   </Step>
-  <Step title="Wallet connection">
-    If not connected, the user selects and connects their wallet (MetaMask supported).
-  </Step>
-  <Step title="Transaction estimation">
-    The SDK estimates gas costs, fees, and execution time for the cross-chain transaction.
-  </Step>
-  <Step title="User confirmation">
-    The user reviews the transaction details and confirms the payment.
-  </Step>
-  <Step title="Cross-chain execution">
-    The SDK executes the transaction using LiFi's cross-chain infrastructure.
+  <Step title="Request a quote">
+    Now you can interact with the SDK and for example request a quote.
+
+    ```typescript
+    import { ChainId, getQuote } from '@keygate/sdk';
+    
+    const quote = await getQuote({
+      fromAddress: 'q2f4q-zm5mc-zdmnx-3td3y-g7gpo-n2j3y-wafen-43337-zvj6j-4lh4p-cqe',
+      fromChain: ChainId.ICP,
+      toChain: ChainId.OPT,
+      fromToken: '53nhb-haaaa-aaaar-qbn5q-cai', // osUSDC
+      toToken: '0x0b2c639c533813f4aa9d7837caf62653d097ff85', // USDC (Optimism)
+      fromAmount: '1000000000000000000',
+    });
+    ```
   </Step>
 </Steps>

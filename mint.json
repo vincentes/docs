@@ -15,31 +15,37 @@
       "to": "#07C983"
     }
   },
-  "navigation": [
-    {
-      "anchor": "Bridge",
-      "icon": "link",
-      "href": "https://bridge.keygate.io"
-    },
-    {
-      "group": "Get Started",
-      "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+  "navigation": {
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Bridge",
+          "icon": "link",
+          "href": "https://bridge.keygate.io"
+        }
       ]
     },
-    {
-     "group": "SDK",
-     "pages": [
-       "routes",
-        "execute-routes",
-        "supported-chains",
-        "supported-tokens",
-        "feature-request"
-      ] 
-    }
-  ],
+    "groups": [
+      {
+        "group": "Get Started",
+        "pages": [
+          "introduction",
+          "quickstart",
+          "development"
+        ]
+      },
+      {
+       "group": "SDK",
+       "pages": [
+         "routes",
+          "execute-routes",
+          "supported-chains",
+          "supported-tokens",
+          "feature-request"
+        ] 
+      }
+    ]
+  },
   "footerSocials": {
     "x": "https://x.com/keygate_io",
     "github": "https://github.com/keygate-io",
